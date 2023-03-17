@@ -1,7 +1,7 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -17,16 +17,24 @@ return {
 			local lspconfig = require("lspconfig")
 			local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local get_servers = require("mason-lspconfig").get_installed_servers()
-			pengaturan = {
-				html = { "html", "php" },
+			servers = {
+				html = {
+					filetypes = { "html", "php" },
+				},
+				emmet_ls = {
+					filetypes = { "html", "css", "javascript", "typescriptreact", "javascriptreact", "php" },
+				},
 			}
 
-			for _, server_name in ipairs(get_servers) do
-				lspconfig[server_name].setup({
+			local server_opts = function(server)
+				return vim.tbl_deep_extend("force", {
 					on_attach = util.lsp_attach,
 					capabilities = lsp_capabilities,
-					filetypes = pengaturan[server_name],
-				})
+				}, servers[server] or {})
+			end
+
+			for _, server_name in ipairs(get_servers) do
+				lspconfig[server_name].setup(server_opts(server_name))
 			end
 		end,
 	},

@@ -6,9 +6,6 @@ return {
 		"edluffy/hologram.nvim",
 	},
 	opts = {
-		row = 6,
-		popup = {
-			avoid_statusline = true,
-		},
+		row = 4,
 	},
 }
