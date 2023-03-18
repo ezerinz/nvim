@@ -4,7 +4,7 @@ return {
 		{ "<leader>nt", "<cmd>Neotree toggle<CR>" },
 		{ "<leader>nm", "<cmd>Neotree focus<CR>" },
 	},
-	cmd = "Neotree toggle",
+	cmd = "Neotree",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
