@@ -11,6 +11,7 @@ return {
 		"MunifTanjim/nui.nvim",
 	},
 	opts = {
+		enable_diagnostics = false,
 		window = {
 			position = "left",
 			width = 29,
