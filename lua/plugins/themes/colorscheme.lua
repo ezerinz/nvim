@@ -23,8 +23,9 @@ return {
 		"ellisonleao/gruvbox.nvim",
 		event = "VeryLazy",
 		opts = {
-			underline = false,
-			undercurl = false,
+			overrides = {
+				IlluminatedWordText = { bg = "#504945" },
+			},
 		},
 	},
 	--[[  {
