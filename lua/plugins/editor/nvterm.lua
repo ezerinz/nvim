@@ -11,7 +11,7 @@ return {
 			end,
 		},
 		{
-			"<leader>th",
+			"<leader>tb",
 			function()
 				require("nvterm.terminal").toggle("horizontal")
 			end,
