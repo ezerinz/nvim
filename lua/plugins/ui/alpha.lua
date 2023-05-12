@@ -5,10 +5,10 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
-	config = function()
-		local alpha = require("alpha")
+	opts = function()
 		local dashboard = require("alpha.themes.dashboard")
 		math.randomseed(os.time())
+		colormenu_path = vim.fn.expand("$HOME/.config/nvim/lua/util/colorscheme.lua")
 		local logo = {
 			{
 				"⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣬⡛⣿⣿⣿⣯⢻",
@@ -90,158 +90,79 @@ return {
 				"⡿⢁⠞⢀⣿⢣⠇⣿⠄⠄⠸⢀⢳⢣⣗⣿⡇⡔⠄⠔⠄⠄⢠⠄⠹⣿⣷⡝⣧⢻⣆ ",
 			},
 		}
-		function random_logo(ascii)
-			random_index = math.random(1, #ascii)
-			return ascii[random_index]
-		end
-		dashboard.section.header.val = random_logo(logo)
-		dashboard.section.header.opts.hl = "Error"
-
-		local stats = require("lazy").stats()
-		local heading = {
-			type = "text",
-			val = "Neovim loaded " .. stats.count .. " plugins ",
-			opts = {
-				position = "center",
-				hl = "Error",
-			},
-		}
-
-		local function getGreeting(name)
-			local tableTime = os.date("*t")
-			local hour = tableTime.hour
-			local greetingsTable = {
-				[1] = "  Sleep well",
-				[2] = "  Good morning",
-				[3] = "  Good afternoon",
-				[4] = "  Good evening",
-				[5] = "望 Good night",
-			}
-			barkiri = "──── "
-			barkanan = " ────"
-			local greetingIndex = 0
-			if hour == 23 or hour < 7 then
-				greetingIndex = 1
-				barkiri = "───── "
-				barkanan = " ─────"
-			elseif hour < 12 then
-				greetingIndex = 2
-			elseif hour >= 12 and hour < 18 then
-				greetingIndex = 3
-				barkiri = "─── "
-				barkanan = " ───"
-			elseif hour >= 18 and hour < 21 then
-				greetingIndex = 4
-			elseif hour >= 21 then
-				greetingIndex = 5
-				barkiri = "───── "
-				barkanan = " ─────"
-			end
-
-			return barkiri .. greetingsTable[greetingIndex] .. ", " .. name .. barkanan
-		end
-
-		local userName = "Ezerinz"
-		local greeting = "┌─" .. getGreeting(userName) .. "─┐"
-
-		local greetHeading = {
-			type = "text",
-			val = greeting,
-			opts = {
-				position = "center",
-				hl = "Error",
-			},
-		}
-
-		local function button(sc, txt, keybind, keybind_opts)
-			local b = dashboard.button(sc, txt, keybind, keybind_opts)
-			b.opts.hl = "Comment"
-			b.opts.hl_shortcut = "Error"
-			return b
-		end
-
-		colormenu_path = vim.fn.expand("$HOME/.config/nvim/lua/util/colorscheme.lua")
-
+		dashboard.section.header.val = logo[math.random(1, #logo)]
 		dashboard.section.buttons.val = {
-			button("t", " " .. " File Explorer", "<cmd>ene <BAR> Neotree toggle<CR>"),
-			button("f", " " .. " Find File", ":Telescope find_files <CR>"),
-			button("r", " " .. " Recent Files", ":Telescope oldfiles <CR>"),
-			button("g", " " .. " Find Text", ":Telescope live_grep <CR>"),
-			button("c", "🖌" .. " Change Colorscheme", ":luafile " .. colormenu_path .. "<CR>"),
-			button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
-			button("q", " " .. " Quit", ":qa<CR>"),
+			dashboard.button("t", " " .. " File Explorer", "<cmd>ene <BAR> Neotree toggle<CR>"),
+			dashboard.button("f", " " .. " Find File", ":Telescope find_files <CR>"),
+			dashboard.button("r", " " .. " Recent Files", ":Telescope oldfiles <CR>"),
+			dashboard.button("g", " " .. " Find Text", ":Telescope live_grep <CR>"),
+			dashboard.button("c", "🖌" .. " Change Colorscheme", ":luafile " .. colormenu_path .. "<CR>"),
+			dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
+			dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 		}
 		dashboard.section.buttons.opts.spacing = 0
-
-		local function footer()
-			local datetime = os.date(" %d/%m/%Y ")
-			local version = vim.version()
-			local nvim_version_info = "  v" .. version.major .. "." .. version.minor .. "." .. version.patch
-
-			return {
-				type = "text",
-				val = "──────────── "
-					.. datetime
-					.. "|"
-					.. nvim_version_info
-					.. " ─────────────",
-				opts = {
-					position = "center",
-					hl = "Comment",
-				},
-			}
+		for _, button in ipairs(dashboard.section.buttons.val) do
+			button.opts.hl = "Comment"
+			button.opts.hl_shortcut = "Error"
 		end
-
-		local quote = "First, solve the problem. Then, write the code."
-		local quoteAuthor = "John Johnson"
-
-		local fortune = {
+		dashboard.section.header.opts.hl = "Error"
+		dashboard.section.buttons.opts.hl = "Error"
+		dashboard.section.footer.opts.hl = "Error"
+		local quote = {
 			type = "text",
-			val = quote,
+			val = "First, solve the problem. Then, write the code",
 			opts = {
 				position = "center",
 				hl = "Comment",
 			},
 		}
-
-		local fortune1 = {
+		local quote_author = {
 			type = "text",
-			val = "                                -" .. quoteAuthor,
+			val = "                                - John Johnson",
 			opts = {
 				position = "center",
 				hl = "Comment",
 			},
 		}
-
-		local opts = {
+		dashboard.opts = {
 			layout = {
 				{ type = "padding", val = 1 },
 				dashboard.section.header,
-				greetHeading,
-				heading,
-				{ type = "padding", val = 2 },
-				dashboard.section.buttons,
-				footer(),
-				{ type = "padding", val = 2 },
-				fortune,
 				{ type = "padding", val = 1 },
-				fortune1,
+				dashboard.section.footer,
+				{ type = "padding", val = 1 },
+				dashboard.section.buttons,
+				{ type = "padding", val = 2 },
+				quote,
+				quote_author,
 			},
 			opts = {
-				margin = 45,
+				margin = 55,
 			},
 		}
-		alpha.setup(opts)
-		vim.cmd([[ autocmd FileType alpha setlocal nofoldenable]])
+		return dashboard
+	end,
+	config = function(_, dashboard)
+		-- close Lazy and re-open when the dashboard is ready
+		if vim.o.filetype == "lazy" then
+			vim.cmd.close()
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "AlphaReady",
+				callback = function()
+					require("lazy").show()
+				end,
+			})
+		end
+
+		require("alpha").setup(dashboard.opts)
+
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "LazyVimStarted",
 			callback = function()
 				local stats = require("lazy").stats()
 				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-				ms = string.format("%.2f", ms)
-				heading.val =
-					"└──  " .. stats.count .. " plugins loaded in " .. ms .. "ms ──┘",
-					pcall(vim.cmd.AlphaRedraw)
+				dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+				pcall(vim.cmd.AlphaRedraw)
 			end,
 		})
 	end,
