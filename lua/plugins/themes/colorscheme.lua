@@ -1,16 +1,4 @@
 return {
-	-- set and persist colorscheme
-	{
-		"ezerinz/colorscheme-persist.nvim",
-		cmd = "ColorschemePersist",
-		dependencies = {
-			"nvim-telescope/telescope-dap.nvim",
-		},
-		config = function()
-			require("colorscheme-persist").setup()
-		end,
-	},
-
 	{
 		"folke/tokyonight.nvim",
 		event = "VeryLazy",
@@ -28,9 +16,23 @@ return {
 			},
 		},
 	},
-	--[[  {
-    "catppuccin/nvim",
-    event = "VeryLazy",
-  },
-]]
+
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		event = "VeryLazy",
+		opts = {
+			custom_highlights = function(C)
+				return {
+					NeoTreeNormalNc = { fg = C.text, bg = C.crust },
+					NeoTreeNormal = { fg = C.text, bg = C.crust },
+				}
+			end,
+		},
+	},
+
+	{
+		"rebelot/kanagawa.nvim",
+		event = "VeryLazy",
+	},
 }
