@@ -75,20 +75,6 @@ return {
 				"⣆⢕⠄⢱⣄⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢁⢕⢕⠕⢁",
 				"⣿⣦⡀⣿⣿⣷⣶⣬⣍⣛⣛⣛⡛⠿⠿⠿⠛⠛⢛⣛⣉⣭⣤⣂⢜⠕⢑⣡⣴⣿",
 			},
-			{
-				"⠄⠄⢿⣇⠄⠄⠘⣆⢀⣼⣿⣿⣿⣿⢿⡿⣿⢻⣿⣿⣿⣿⣿⣿⣿⣟⢧⡲⣿⢷⢦⡀",
-				"⠄⠄⠈⣿⠄⠄⠄⢙⢞⢿⣿⢹⢿⣦⢏⣱⢿⠘⣿⣝⠹⢿⣿⡽⣿⣿⣏⣆⢿⣿⡞⠁",
-				"⠄⠄⠄⢻⡀⠄⠄⠈⣾⡸⡏⢸⡾⣴⣿⣿⣶⣼⣎⢵⢀⡛⣿⣷⡙⡻⢻⡴⠨⠨⠖⠃",
-				"⠄⠄⠄⠈⣧⢀⡴⠊⢹⠁⡇⠈⢣⣿⣿⣿⣿⣦⣿⣷⣜⡳⣝⢧⢃⢣⣼⢁⠘⠆⠄⠄",
-				"⠄⠄⠄⠄⢹⡇⠄⣠⠔⠚⣅⠄⢰⣶⣦⣭⣿⣿⣿⡿⠟⠿⣷⡧⠄⣘⣟⣸⠄⠄⠄⠄",
-				"⠄⠄⠄⠄⠄⢷⠎⠄⠄⠄⣼⣦⠻⣿⣿⡟⠛⠻⢿⣿⣿⣿⡾⢱⣿⡏⠸⡏⠄⠄⠄⠄",
-				"⠄⠄⠄⠄⠄⠸⡄⠄⡄⠄⣿⢧⢗⠌⠻⣇⠿⠿⣸⣿⣿⡟⡐⣿⠟⢰⣇⠇⠄⠄⠄⠄",
-				"⠄⠄⠄⠄⠄⣠⡆⠄⠃⢠⠏⣤⢀⢢⡰⣭⣛⡉⠩⠭⡅⣾⢳⡴⡀⢸⣿⡆⠄⠄⠄⠄",
-				"⠄⠄⠄⢀⣶⡟⣽⠼⢀⡕⢀⠘⠸⢮⡳⡻⡍⡷⡆⠤⠤⠭⢸⢳⣷⢸⡟⣷⠄⠄⠄⠄",
-				"⠄⠄⣴⣿⢫⢞⣵⢏⡞⠄⢸⠄⣛⣗⠩⠄⣰⣚⠒⠂⣀⡀⢸⢸⣿⣧⠇⡼⣧⠄⠄⠄",
-				"⢠⣾⢟⡴⢫⡾⣱⢟⠄⠄⢸⠄⢈⡓⡮⡦⡬⠽⡠⠄⠔⠄⢸⠈⣿⣿⡄⣷⢹⣆⠄⠄",
-				"⡿⢁⠞⢀⣿⢣⠇⣿⠄⠄⠸⢀⢳⢣⣗⣿⡇⡔⠄⠔⠄⠄⢠⠄⠹⣿⣷⡝⣧⢻⣆ ",
-			},
 		}
 		dashboard.section.header.val = logo[math.random(1, #logo)]
 		dashboard.section.buttons.val = {
@@ -96,7 +82,7 @@ return {
 			dashboard.button("f", " " .. " Find File", ":Telescope find_files <CR>"),
 			dashboard.button("r", " " .. " Recent Files", ":Telescope oldfiles <CR>"),
 			dashboard.button("g", " " .. " Find Text", ":Telescope live_grep <CR>"),
-			dashboard.button("c", "🖌" .. " Change Colorscheme", ":luafile " .. colormenu_path .. "<CR>"),
+			dashboard.button("c", " " .. " Change Colorscheme", ":luafile " .. colormenu_path .. "<CR>"),
 			dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
 			dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 		}
@@ -108,6 +94,7 @@ return {
 		dashboard.section.header.opts.hl = "Error"
 		dashboard.section.buttons.opts.hl = "Error"
 		dashboard.section.footer.opts.hl = "Error"
+
 		local quote = {
 			type = "text",
 			val = "First, solve the problem. Then, write the code",
@@ -124,12 +111,27 @@ return {
 				hl = "Comment",
 			},
 		}
+
+		local datetime = os.date(" %A, %d %B")
+		local version = vim.version()
+		local nvim_version_info = " " .. version.major .. "." .. version.minor .. "." .. version.patch
+		local info_string = datetime .. " | " .. nvim_version_info
+		local info = {
+			type = "text",
+			val = info_string,
+			opts = {
+				position = "center",
+				hl = "Error",
+			},
+		}
+
 		dashboard.opts = {
 			layout = {
-				{ type = "padding", val = 2 },
+				{ type = "padding", val = 1 },
 				dashboard.section.header,
 				{ type = "padding", val = 1 },
 				dashboard.section.footer,
+				info,
 				{ type = "padding", val = 1 },
 				dashboard.section.buttons,
 				{ type = "padding", val = 2 },
@@ -161,7 +163,7 @@ return {
 			callback = function()
 				local stats = require("lazy").stats()
 				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-				dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+				dashboard.section.footer.val = "󱐌 Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
 				pcall(vim.cmd.AlphaRedraw)
 			end,
 		})

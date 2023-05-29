@@ -28,6 +28,14 @@ return {
 					NeoTreeNormal = { fg = C.text, bg = C.crust },
 				}
 			end,
+			transparent_background = true,
+			integrations = {
+				illuminate = true,
+				indent_blankline = {
+					enabled = true,
+					colored_indent_levels = true,
+				},
+			},
 		},
 	},
 

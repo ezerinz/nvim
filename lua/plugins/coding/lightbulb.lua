@@ -8,6 +8,6 @@ return {
 				enabled = true,
 			},
 		})
-		vim.fn.sign_define("LightBulbSign", { text = "", texthl = "DiagnosticWarn", numhl = "", linehl = "" })
+		vim.fn.sign_define("LightBulbSign", { text = "", texthl = "DiagnosticWarn", numhl = "", linehl = "" })
 	end,
 }

@@ -13,7 +13,6 @@ return {
 			vim.keymap.set("n", "<leader>e,", vim.diagnostic.goto_prev, opts)
 			vim.keymap.set("n", "<leader>e.", vim.diagnostic.goto_next, opts)
 
-			require("mason").setup()
 			local lspconfig = require("lspconfig")
 			local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local get_servers = require("mason-lspconfig").get_installed_servers()
@@ -43,7 +42,31 @@ return {
 	{
 		"williamboman/mason.nvim",
 		cmd = "Mason",
-		config = true,
+		opts = {
+			ensure_installed = {
+				"stylua",
+				"pyright",
+				"prettierd",
+			},
+		},
+		---@param opts MasonSettings | {ensure_installed: string[]}
+		config = function(_, opts)
+			require("mason").setup(opts)
+			local mr = require("mason-registry")
+			local function ensure_installed()
+				for _, tool in ipairs(opts.ensure_installed) do
+					local p = mr.get_package(tool)
+					if not p:is_installed() then
+						p:install()
+					end
+				end
+			end
+			if mr.refresh then
+				mr.refresh(ensure_installed)
+			else
+				ensure_installed()
+			end
+		end,
 	},
 
 	-- jdtls

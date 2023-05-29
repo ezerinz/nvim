@@ -8,9 +8,7 @@ return {
 
 	config = function()
 		require("mason-null-ls").setup({
-			ensure_installed = {
-				-- Opt to list sources here, when available in mason.
-			},
+			ensure_installed = {},
 			automatic_installation = true,
 			handlers = {},
 		})
@@ -18,6 +16,5 @@ return {
 			on_attach = require("util").format_on_save,
 			sources = {},
 		})
-		-- require 'mason-null-ls'.setup_handlers()
 	end,
 }
