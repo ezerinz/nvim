@@ -1,6 +1,6 @@
 return {
 	"giusgad/pets.nvim",
-	event = "VeryLazy",
+	cmd = { "PetsNew", "PetsNewCustom", "PetList" },
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 		"edluffy/hologram.nvim",
