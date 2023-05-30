@@ -1,6 +1,10 @@
 local M = {}
-local Menu = require("nui.menu")
-local event = require("nui.utils.autocmd").event
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+
 disable = {
 	"darkblue",
 	"default",
@@ -25,6 +29,7 @@ disable = {
 	"zellner",
 }
 file_path = os.getenv("HOME") .. "/.config/nvim/lua/util/colorscheme-persist.lua"
+current_color = vim.api.nvim_command_output("color")
 
 local function get_colors()
 	local colors = {}
@@ -38,47 +43,47 @@ local function get_colors()
 			end
 		end
 		if not ignored then
-			table.insert(colors, Menu.item(color))
+			table.insert(colors, color)
 		end
 	end
 	return colors
 end
-current_color = vim.api.nvim_command_output("color")
-local menu = Menu({
-	position = { row = "10%", col = "95%" },
-	size = {
-		width = 35,
-		height = 5,
-	},
-	border = {
-		style = "rounded",
-		text = {
-			top = " Choose Colorscheme ",
-			top_align = "center",
-			bottom = " Current: " .. current_color .. " ",
-			bottom_align = "center",
-		},
-	},
-	win_options = {
-		winhighlight = "Normal:Normal,FloatBorder:Normal",
-	},
-}, {
-	lines = get_colors(),
-	max_width = 20,
-	keymap = {
-		focus_next = { "j", "<Down>", "<Tab>" },
-		focus_prev = { "k", "<Up>", "<S-Tab>" },
-		close = { "<Esc>", "<C-c>" },
-		submit = { "<CR>", "<Space>" },
-	},
-	on_close = function()
-		print("Menu Closed!")
-	end,
-	on_submit = function(item)
-		vim.cmd("colorscheme " .. item.text)
-		write = string.format("vim.cmd.colorscheme('%s')", item.text)
-		require("lazy.util").write_file(file_path, write)
-	end,
-})
 
-menu:mount()
+local colorspicker = function(opts)
+	opts = opts or {}
+	local before_color = current_color
+	local colors = get_colors() or { before_color }
+
+	if not vim.tbl_contains(colors, before_color) then
+		table.insert(colors, 1, before_color)
+	end
+
+	colors = vim.list_extend(
+		{ before_color },
+		vim.tbl_filter(function(color)
+			return color ~= before_color
+		end, colors)
+	)
+
+	pickers
+		.new(opts, {
+			prompt_title = "Choose Colorscheme | Current: " .. before_color,
+			finder = finders.new_table({
+				results = colors,
+			}),
+			sorter = conf.generic_sorter(opts),
+			attach_mappings = function(prompt_bufnr, map)
+				actions.select_default:replace(function()
+					actions.close(prompt_bufnr)
+					local selection = action_state.get_selected_entry()
+					vim.cmd("colorscheme " .. selection[1])
+					write = string.format("vim.cmd.colorscheme('%s')", selection[1])
+					require("lazy.util").write_file(file_path, write)
+				end)
+				return true
+			end,
+		})
+		:find()
+end
+
+colorspicker(require("telescope.themes").get_dropdown({}))
