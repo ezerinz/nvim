@@ -11,6 +11,7 @@ ft_cmds = {
 			or "cd $path && javac $fn && java $fnOnly"
 	end,
 	php = "cd $path && php $fn",
+	dart = "cd $path && dart $fn",
 }
 
 function gsub_cmd(cmd)

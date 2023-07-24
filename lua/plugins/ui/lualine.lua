@@ -8,6 +8,7 @@ return {
 				disabled_filetypes = {
 					statusline = { "alpha", "dashboard", "lazy" },
 				},
+				section_separators = { left = "", right = "" },
 			},
 			sections = {
 				lualine_x = {
@@ -16,6 +17,9 @@ return {
 						cond = require("noice").api.statusline.mode.has,
 						color = { fg = "#ff9e64" },
 					},
+					"encoding",
+					"fileformat",
+					"filetype",
 				},
 			},
 		}

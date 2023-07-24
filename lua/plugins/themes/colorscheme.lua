@@ -7,7 +7,7 @@ return {
 		},
 	},
 
-	{
+	--[[	{
 		"ellisonleao/gruvbox.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -15,7 +15,7 @@ return {
 				IlluminatedWordText = { bg = "#504945" },
 			},
 		},
-	},
+	},]]
 
 	{
 		"catppuccin/nvim",

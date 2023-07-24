@@ -16,6 +16,14 @@ return {
 					},
 					opts = { skip = true },
 				},
+				{
+					filter = {
+						event = "msg_show",
+						kind = "",
+						find = "error drawing label for",
+					},
+					opts = { skip = true },
+				},
 			},
 			lsp = {
 				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**

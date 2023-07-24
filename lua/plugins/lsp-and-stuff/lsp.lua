@@ -74,4 +74,30 @@ return {
 		"mfussenegger/nvim-jdtls",
 		ft = "java",
 	},
+
+	{
+		"akinsho/flutter-tools.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim", -- optional for vim.ui.select
+		},
+		opts = {
+			widget_guides = {
+				enabled = true,
+			},
+			lsp = {
+				color = {
+					enabled = true,
+					background = true,
+					background_color = { r = 19, g = 17, b = 24 },
+				},
+				on_attach = require("util").lsp_attach,
+				capabilities = require("cmp_nvim_lsp").default_capabilities(),
+			},
+		},
+		config = function(_, opts)
+			require("flutter-tools").setup(opts)
+		end,
+	},
 }
