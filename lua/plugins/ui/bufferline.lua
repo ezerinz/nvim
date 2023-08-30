@@ -8,45 +8,48 @@ return {
 	config = function()
 		local bs = require("util").bufferline_setting()
 		local highlights = function()
-			local fg = "#ffffff"
-			local bg = "#11111b"
+			local fg = "#c0caf5"
+			local bg = "#1a1b26"
 			return {
-				background = {
-					bg = bg,
-				},
-				buffer_visible = {
-					bg = bg,
-				},
-				close_button = {
-					bg = bg,
-				},
-				duplicate = {
-					bg = bg,
-				},
-				duplicate_selected = {
-					bg = bg,
-					fg = fg,
-					bold = true,
-				},
-				duplicate_visible = {
-					bg = bg,
-				},
-				fill = {
-					bg = bg,
-				},
-				indicator_visible = {
-					bg = bg,
-				},
-				modified = {
-					bg = bg,
-				},
-				separator = {
-					bg = bg,
-					fg = bg,
-				},
-				separator_visible = {
-					bg = bg,
-					fg = bg,
+				-- background = {
+				-- 	bg = bg,
+				-- },
+				-- buffer_visible = {
+				-- 	bg = bg,
+				-- },
+				-- close_button = {
+				-- 	bg = bg,
+				-- },
+				-- duplicate = {
+				-- 	bg = bg,
+				-- },
+				-- duplicate_selected = {
+				-- 	bg = bg,
+				-- 	fg = fg,
+				-- 	bold = true,
+				-- },
+				-- duplicate_visible = {
+				-- 	bg = bg,
+				-- },
+				-- fill = {
+				-- 	bg = bg,
+				-- },
+				-- indicator_visible = {
+				-- 	bg = bg,
+				-- },
+				-- modified = {
+				-- 	bg = bg,
+				-- },
+				-- separator = {
+				-- 	bg = bg,
+				-- 	fg = bg,
+				-- },
+				-- separator_visible = {
+				-- 	bg = bg,
+				-- 	fg = bg,
+				-- },
+				offset_separator = {
+					bg = "None",
 				},
 			}
 		end

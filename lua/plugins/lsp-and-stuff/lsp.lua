@@ -73,6 +73,14 @@ return {
 	{
 		"mfussenegger/nvim-jdtls",
 		ft = "java",
+		opts = {
+			cmd = { "/usr/share/java/jdtls/bin/jdtls" },
+			root_dir = vim.fs.dirname(vim.fs.find({ ".gradlew", ".git", "mvnw" }, { upward = true })[1]),
+			on_attach = require("util").lsp_attach,
+		},
+		config = function(_, opts)
+			require("jdtls").start_or_attach(opts)
+		end,
 	},
 
 	{
@@ -91,6 +99,7 @@ return {
 					enabled = true,
 					background = true,
 					background_color = { r = 19, g = 17, b = 24 },
+					virtual_text = false,
 				},
 				on_attach = require("util").lsp_attach,
 				capabilities = require("cmp_nvim_lsp").default_capabilities(),

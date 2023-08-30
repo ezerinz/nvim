@@ -1,6 +1,7 @@
 local M = {}
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 M.format_on_save = function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })

@@ -3,7 +3,7 @@ return {
 		"folke/tokyonight.nvim",
 		event = "VeryLazy",
 		opts = {
-			transparent = false,
+			-- transparent = true,
 		},
 	},
 
