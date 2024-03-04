@@ -12,6 +12,7 @@ ft_cmds = {
 	end,
 	php = "cd $path && php $fn",
 	dart = "cd $path && dart $fn",
+	cpp = "cd $path && g++ $fn -o '$fnOnly.out' && ./$fnOnly.out",
 }
 
 function gsub_cmd(cmd)

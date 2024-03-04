@@ -91,8 +91,12 @@ return {
 			"stevearc/dressing.nvim", -- optional for vim.ui.select
 		},
 		opts = {
+			fvm = true,
 			widget_guides = {
 				enabled = true,
+			},
+			dev_log = {
+				open_cmd = "belowright 35 vsplit", -- command to use to open the log buffer
 			},
 			lsp = {
 				color = {
@@ -106,6 +110,8 @@ return {
 			},
 		},
 		config = function(_, opts)
+			require("luasnip").filetype_extend("dart", { "flutter" })
+			require("telescope").load_extension("flutter")
 			require("flutter-tools").setup(opts)
 		end,
 	},

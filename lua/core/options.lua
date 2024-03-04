@@ -6,6 +6,7 @@ g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
 g.mapleader = " "
+opt.exrc = true
 opt.number = true
 opt.mouse = "a"
 opt.hlsearch = false

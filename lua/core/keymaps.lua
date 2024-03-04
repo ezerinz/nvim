@@ -1,8 +1,8 @@
 local key = vim.keymap
 
 -- better up/down
-key.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-key.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- key.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- key.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 key.set("n", "<leader>w", "<cmd>write<CR>")
 key.set("n", "<leader>q", "<cmd>quit<CR>")
@@ -15,6 +15,12 @@ key.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 key.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 key.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
+-- Resize window using <ctrl> arrow keys
+key.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+key.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+key.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+key.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
 -- Switch buffers with <shift> hl
 key.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 key.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
@@ -23,7 +29,7 @@ key.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 key.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- copy paste clipboard
-key.set({ "n", "x" }, "<leader>c", '"+y')
+key.set({ "n", "x" }, "<leader>y", '"+y')
 key.set({ "n", "x" }, "<leader>v", '"+p')
 
 -- Move to window using the <ctrl> hjkl keys

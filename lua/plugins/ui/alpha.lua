@@ -114,7 +114,7 @@ return {
 
 		local datetime = os.date(" %A, %d %B")
 		local version = vim.version()
-		local nvim_version_info = " " .. version.major .. "." .. version.minor .. "." .. version.patch
+		local nvim_version_info = " " .. version.major .. "." .. version.minor .. "." .. version.patch
 		local info_string = datetime .. " | " .. nvim_version_info
 		local info = {
 			type = "text",

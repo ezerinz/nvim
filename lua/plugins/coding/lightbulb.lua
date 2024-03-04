@@ -7,7 +7,9 @@ return {
 			autocmd = {
 				enabled = true,
 			},
+			sign = {
+				text = "",
+			},
 		})
-		vim.fn.sign_define("LightBulbSign", { text = "", texthl = "DiagnosticWarn", numhl = "", linehl = "" })
 	end,
 }
