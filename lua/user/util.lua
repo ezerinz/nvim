@@ -4,20 +4,20 @@ local M = {}
 ---@param json_path string
 ---@return table | nil
 M.load_json = function(json_path)
-	local contents = ""
-	local file = io.open(json_path, "r")
+  local contents = ""
+  local file = io.open(json_path, "r")
 
-	if file then
-		-- read all contents of file into a string
-		contents = file:read("*a")
-		local status, result = pcall(vim.fn.json_decode, contents)
-		io.close(file)
-		if status then
-			return result
-		else
-			return
-		end
-	end
+  if file then
+    -- read all contents of file into a string
+    contents = file:read("*a")
+    local status, result = pcall(vim.fn.json_decode, contents)
+    io.close(file)
+    if status then
+      return result
+    else
+      return
+    end
+  end
 end
 
 return M

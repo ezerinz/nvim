@@ -1,5 +1,5 @@
 local Plugin = {
-	"stevearc/dressing.nvim",
+  "stevearc/dressing.nvim",
 }
 
 Plugin.opts = {}
