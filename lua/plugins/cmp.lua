@@ -26,6 +26,7 @@ Plugin.config = function()
     },
     sources = {
       { name = "path" },
+      { name = "lazydev", group_index = 0 },
       { name = "nvim_lsp", keyword_length = 1 },
       { name = "buffer", keyword_length = 3 },
       { name = "luasnip", keyword_length = 2 },
@@ -54,14 +55,14 @@ Plugin.config = function()
       ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
       ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
 
-      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-d>"] = cmp.mapping.scroll_docs(4),
+      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-v>"] = cmp.mapping.scroll_docs(4),
 
       ["<C-e>"] = cmp.mapping.abort(),
       ["<C-y>"] = cmp.mapping.confirm({ select = true }),
       ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-      ["<C-f>"] = cmp.mapping(function(fallback)
+      ["<C-d>"] = cmp.mapping(function(fallback)
         if luasnip.jumpable(1) then
           luasnip.jump(1)
         else
@@ -69,7 +70,7 @@ Plugin.config = function()
         end
       end, { "i", "s" }),
 
-      ["<C-b>"] = cmp.mapping(function(fallback)
+      ["<C-f>"] = cmp.mapping(function(fallback)
         if luasnip.jumpable(-1) then
           luasnip.jump(-1)
         else

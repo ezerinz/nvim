@@ -9,10 +9,19 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = false
 vim.opt.relativenumber = true
-vim.opt.smoothscroll = true
 vim.opt.fillchars = { eob = " " }
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.hidden = true
+vim.opt.filetype = "on"
+
+if vim.fn.has("nvim-0.10") == 1 then
+	vim.opt.smoothscroll = true
+end
+
+if vim.g.neovide then
+	vim.o.guifont = "JetBrainsMono NFM:h11"
+	vim.g.neovide_scale_factor = 1.0
+end

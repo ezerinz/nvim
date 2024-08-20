@@ -36,4 +36,9 @@ Plugin.opts = {
   },
 }
 
+Plugin.config = function(_, opts)
+  require("telescope").setup(opts)
+  require("telescope").load_extension("flutter")
+end
+
 return Plugin

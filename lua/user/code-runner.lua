@@ -10,11 +10,11 @@ local filetype = {
   python = { "cd $path &&", "python3 $fn" },
   javascript = { "cd $path &&", "node $fn" },
   lua = { "cd $path", "&& lua $fn" },
-  -- java = function()
-  -- 	java_root = require("jdtls.setup").find_root({ "gradlew" })
-  -- 	return java_root and "cd " .. java_root .. " && gradle --console plain run"
-  -- 		or "cd $path && javac $fn && java $fnOnly"
-  -- end,
+  java = function()
+    local java_root = require("jdtls.setup").find_root({ "gradlew" })
+    return java_root and "cd " .. java_root .. " && gradle --console plain run"
+      or "cd $path && java $fn"
+  end,
   dart = "cd $path && dart $fn",
   cpp = "cd $path && g++ $fn -o '$fnOnly.out' && ./$fnOnly.out",
 }

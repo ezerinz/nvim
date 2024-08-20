@@ -4,14 +4,15 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 M.format_on_save = function(client, bufnr)
   if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ bufnr = bufnr })
-      end,
-    })
+		-- require("conform").format({ bufnr = bufnr })
+    -- vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+    --   group = augroup,
+    --   buffer = bufnr,
+    --   callback = function()
+    --     vim.lsp.buf.format({ bufnr = bufnr })
+    --   end,
+    -- })
   end
 end
 
@@ -25,11 +26,19 @@ M.set_rename_keymap = function(client)
   end, { expr = true })
 end
 
+M.set_inlay_hint = function(client, buf)
+  if client.supports_method("textDocument/inlayHint") then
+    vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+  end
+end
+
+-- client, buffer
 M.on_lsp_attach = function(args)
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-  M.format_on_save(client, bufnr)
+  M.set_inlay_hint(client, bufnr)
+  -- M.format_on_save(client, bufnr)
 
   local bufmap = function(mode, lhs, rhs)
     local opts = { buffer = bufnr }
@@ -65,6 +74,9 @@ M.on_lsp_attach = function(args)
   -- Selects a code action available at the current cursor position
   bufmap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>")
 
+  -- rename under the cursor position
+  bufmap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>")
+
   -- Show diagnostics in a floating window
   bufmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
 
@@ -73,6 +85,9 @@ M.on_lsp_attach = function(args)
 
   -- Move to the next diagnostic
   bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+
+  -- format current buffer
+  bufmap("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>")
 end
 
 return M

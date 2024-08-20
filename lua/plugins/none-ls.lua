@@ -1,5 +1,7 @@
 local Plugin = { "nvimtools/none-ls.nvim" }
 
+Plugin.enabled = false
+
 Plugin.dependencies = { "jay-babu/mason-null-ls.nvim" }
 
 Plugin.event = { "BufReadPre", "BufNewFile" }
