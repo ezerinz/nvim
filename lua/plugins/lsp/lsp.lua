@@ -7,6 +7,7 @@ Plugin.dependencies = {
   "hrsh7th/cmp-nvim-lsp",
   "mfussenegger/nvim-jdtls",
 }
+
 Plugin.opts = {
   setup = {
     jdtls = function(_)
@@ -15,7 +16,7 @@ Plugin.opts = {
         callback = function()
           local config = {
             cmd = {
-              "java", -- or '/path/to/java17_or_newer/bin/java'
+              "java",
             },
             root_dir = require("jdtls.setup").find_root({ "mvnw", "gradlew" }),
           }
@@ -25,7 +26,6 @@ Plugin.opts = {
       return true
     end,
   },
-  -- custom server setting
   servers = {
     lua_ls = {
       settings = {

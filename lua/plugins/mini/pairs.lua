@@ -1,6 +1,6 @@
 local Plugin = { "echasnovski/mini.pairs" }
 
-Plugin.event = "VeryLazy"
+Plugin.event = "InsertEnter"
 Plugin.opts = {}
 
 return Plugin

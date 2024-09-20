@@ -1,4 +1,4 @@
-local Plugin = { "akinsho/flutter-tools.nvim" }
+local Plugin = { "nvim-flutter/flutter-tools.nvim" }
 
 Plugin.event = "VeryLazy"
 

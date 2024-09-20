@@ -1,30 +1,5 @@
 local M = {}
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
-M.format_on_save = function(client, bufnr)
-  if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ bufnr = bufnr, async = true })
-      end,
-    })
-  end
-end
-
-M.set_rename_keymap = function(client)
-  vim.keymap.set("n", "<leader>rn", function()
-    if client and client.supports_method("textDocument/rename") then
-      return ":IncRename " --.. vim.fn.expand("<cword>")
-    end
-
-    vim.notify("[inc-rename] No active language server with rename capability", vim.lsp.log_levels.WARN)
-  end, { expr = true })
-end
-
 M.set_inlay_hint = function(client, buf)
   if client.supports_method("textDocument/inlayHint") then
     vim.lsp.inlay_hint.enable(true, { bufnr = buf })
@@ -37,14 +12,11 @@ M.on_lsp_attach = function(args)
   local client = vim.lsp.get_client_by_id(args.data.client_id)
 
   M.set_inlay_hint(client, bufnr)
-  -- M.format_on_save(client, bufnr)
 
   local bufmap = function(mode, lhs, rhs)
     local opts = { buffer = bufnr }
     vim.keymap.set(mode, lhs, rhs, opts)
   end
-
-  M.set_rename_keymap(client)
 
   -- Displays hover information about the symbol under the cursor
   bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")

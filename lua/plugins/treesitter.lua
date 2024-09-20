@@ -76,6 +76,7 @@ Plugin.opts = {
   },
   ensure_installed = {
     "javascript",
+    "python",
     "html",
     "css",
     "json",

@@ -29,6 +29,11 @@ Plugin.opts = {
       end,
     },
   },
+  filesystem = {
+    follow_current_file = {
+      enabled = true,
+    },
+  },
 }
 
 return Plugin
