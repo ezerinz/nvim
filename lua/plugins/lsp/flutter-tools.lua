@@ -1,10 +1,11 @@
 local Plugin = { "nvim-flutter/flutter-tools.nvim" }
 
-Plugin.event = "VeryLazy"
+Plugin.ft = "dart"
 
 Plugin.dependencies = {
   "nvim-lua/plenary.nvim",
   "stevearc/dressing.nvim",
+  "saghen/blink.cmp",
 }
 
 local findFlutterPath = function()
@@ -24,7 +25,7 @@ Plugin.opts = {
       background_color = { r = 19, g = 17, b = 24 },
       virtual_text = false,
     },
-    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    capabilities = require("blink.cmp").get_lsp_capabilities(),
   },
 }
 

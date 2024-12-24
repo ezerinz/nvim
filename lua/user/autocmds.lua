@@ -4,12 +4,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "term://*",
+  pattern = "toggleterm",
   callback = require("user.terminal").set_terminal_keymaps,
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "term://*",
+  pattern = "toggleterm",
   callback = function()
     vim.fn.timer_start(1, function()
       vim.cmd("startinsert!")

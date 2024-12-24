@@ -3,30 +3,24 @@ local Plugin = { "L3MON4D3/LuaSnip" }
 
 Plugin.event = "InsertEnter"
 
+Plugin.version = "v2.*"
+
 Plugin.dependencies = {
-	{ "rafamadriz/friendly-snippets" },
+  {
+    {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+        require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+      end,
+    },
+  },
 }
 
 Plugin.config = function()
-	local luasnip = require("luasnip")
-	local snippets = require("luasnip.loaders.from_vscode")
+  local luasnip = require("luasnip")
 
-	luasnip.filetype_extend("dart", { "flutter" })
-	luasnip.config.set_config({
-		keep_roots = false,
-		link_roots = false,
-		link_children = false,
-		region_check_events = "InsertEnter",
-		delete_check_events = "InsertLeave",
-	})
-
-	snippets.lazy_load()
-
-	local filetype = vim.bo.filetype
-
-	if vim.fn.argc() > 0 and filetype ~= "" then
-		snippets.load({ include = { filetype } })
-	end
+  luasnip.filetype_extend("dart", { "flutter" })
 end
 
 return Plugin

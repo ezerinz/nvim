@@ -4,8 +4,8 @@ Plugin.event = { "BufReadPre", "BufNewFile" }
 
 Plugin.dependencies = {
   "williamboman/mason-lspconfig.nvim",
-  "hrsh7th/cmp-nvim-lsp",
   "mfussenegger/nvim-jdtls",
+  "saghen/blink.cmp",
 }
 
 Plugin.opts = {
@@ -41,7 +41,8 @@ Plugin.opts = {
 
 Plugin.config = function(_, opts)
   local lspconfig = require("lspconfig")
-  local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+  -- local lsp_capabilities = require("blink.cmp").capabilities()
+  local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
   local get_servers = require("mason-lspconfig").get_installed_servers()
 
   local server_opts = function(server)

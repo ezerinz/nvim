@@ -1,13 +1,14 @@
 local Plugin = { "hrsh7th/nvim-cmp" }
 
 Plugin.event = "InsertEnter"
+Plugin.enabled = false
 
 Plugin.dependencies = {
-  { "hrsh7th/cmp-buffer" },
-  { "hrsh7th/cmp-path" },
-  { "saadparwaiz1/cmp_luasnip" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "L3MON4D3/LuaSnip" },
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "saadparwaiz1/cmp_luasnip",
+  "hrsh7th/cmp-nvim-lsp",
+  "L3MON4D3/LuaSnip",
 }
 
 Plugin.config = function()

@@ -1,5 +1,7 @@
 local Plugin = { "nvim-telescope/telescope.nvim" }
 
+Plugin.enabled = false
+
 Plugin.dependencies = {
   "nvim-lua/plenary.nvim",
 }
