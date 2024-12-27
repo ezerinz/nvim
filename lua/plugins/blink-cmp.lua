@@ -1,9 +1,13 @@
+-- completion plugin
 local Plugin = { "saghen/blink.cmp" }
 
--- Plugin.lazy = true
+Plugin.event = "InsertEnter"
 
 Plugin.version = "*"
--- Plugin.build = "cargo build --release"
+-- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+-- Plugin.build = 'cargo build --release'
+
+Plugin.dependencies = { "rafamadriz/friendly-snippets" }
 
 Plugin.opts = {
   keymap = {
@@ -17,6 +21,20 @@ Plugin.opts = {
     use_nvim_cmp_as_default = false,
     nerd_font_variant = "mono",
   },
+  completion = {
+    list = {
+      selection = function(ctx)
+        return ctx.mode == "cmdline" and "auto_insert" or "manual"
+      end,
+    },
+    menu = { border = "rounded" },
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 200,
+      window = { border = "rounded" },
+    },
+  },
+  signature = { window = { border = "rounded" } },
   snippets = {
     expand = function(snippet)
       require("luasnip").lsp_expand(snippet)
@@ -32,31 +50,15 @@ Plugin.opts = {
     end,
   },
   sources = {
-    default = { "lsp", "path", "snippets", "buffer", "lazydev", "luasnip" },
-    cmdline = {},
+    default = { "lsp", "path", "luasnip", "buffer", "lazydev" },
     providers = {
       lazydev = {
         name = "LazyDev",
         module = "lazydev.integrations.blink",
-        score_offset = 100, -- show at a higher priority than lsp
+        score_offset = 100,
       },
     },
   },
-  completion = {
-    menu = { border = "single" },
-    list = {
-      selection = "manual",
-    },
-    documentation = {
-      auto_show = true,
-      auto_show_delay_ms = 200,
-      window = { border = "single" },
-    },
-    ghost_text = {
-      enabled = true,
-    },
-  },
-  signature = { window = { border = "single" } },
 }
 
 Plugin.opts_extend = { "sources.default" }

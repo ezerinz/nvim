@@ -1,29 +1,27 @@
 local Plugin = { "akinsho/bufferline.nvim" }
 
-Plugin.event = { "BufRead" }
-
-Plugin.dependencies = { "nvim-tree/nvim-web-devicons" }
+Plugin.event = "BufRead"
 
 Plugin.opts = {
   options = {
-    diagnostics = "nvim_lsp",
+    close_command = function(n)
+      Snacks.bufdelete(n)
+    end,
+    right_mouse_command = function(n)
+      Snacks.bufdelete(n)
+    end,
+    mode = "buffers",
     offsets = {
-      {
-        filetype = "neo-tree",
-        text = "File Explorer",
-        text_align = "center",
-        separator = true,
-      },
+      { filetype = "neo-tree" },
     },
-    show_buffer_close_icons = false,
-    show_close_icon = false,
   },
   highlights = {
-    offset_separator = {
-      bg = "None",
-      fg = vim.api.nvim_get_hl(0, {
-        name = "NeoTreeNormal",
-      }).bg,
+    buffer_selected = {
+      italic = false,
+    },
+    indicator_selected = {
+      fg = { attribute = "fg", highlight = "Function" },
+      italic = false,
     },
   },
 }

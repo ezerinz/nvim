@@ -12,7 +12,7 @@ local gsub_cmd = function(cmd)
   return cmd
 end
 
-M.code_runner = function(ft)
+function M.code_runner(ft)
   local cmd = require("user.code-runner")[ft]
   cmd = type(cmd) == "function" and cmd() or cmd
   cmd = type(cmd) == "table" and table.concat(cmd, " ") or cmd
@@ -20,7 +20,7 @@ M.code_runner = function(ft)
   return cmd and gsub_cmd(cmd) or default
 end
 
-M.set_terminal_keymaps = function()
+function M.set_terminal_keymaps()
   local opts = { buffer = 0 }
   vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
   vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)

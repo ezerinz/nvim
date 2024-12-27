@@ -3,9 +3,9 @@
 -- $fnOnly: filename without extension, e.g main
 -----------------------------------------------------
 -- field: filetype
--- value can take:
--- table (automatically concat with space separator)
--- string
+-- value:
+-- table (automatically concat with space separator), or
+-- string, or
 -- function (return table or string)
 local filetype = {
   python = { "cd $path &&", "python3 $fn" },
@@ -18,8 +18,7 @@ local filetype = {
   dart = function()
     local current_dir = vim.fn.expand("%:p:h")
     local find_root = require("flutter-tools.utils.path").find_root
-    local root_patterns = { "pubspec.yaml" }
-    local is_project = find_root(root_patterns, current_dir)
+    local is_project = find_root({ "pubspec.yaml" }, current_dir)
     if is_project then
       local is_flutter = find_root({ "android/", "ios/", "linux/", "macos/", "web/", "windows/" }, current_dir)
       if is_flutter then

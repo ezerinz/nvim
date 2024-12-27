@@ -1,13 +1,12 @@
 local M = {}
 
-M.set_inlay_hint = function(client, buf)
+function M.set_inlay_hint(client, buf)
   if client.supports_method("textDocument/inlayHint") then
     vim.lsp.inlay_hint.enable(true, { bufnr = buf })
   end
 end
 
--- client, buffer
-M.on_lsp_attach = function(args)
+function M.on_lsp_attach(args)
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
 
@@ -43,7 +42,7 @@ M.on_lsp_attach = function(args)
   bufmap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>")
 
   -- Selects a code action available at the current cursor position
-  bufmap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+  bufmap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>")
 
   -- rename under the cursor position
   bufmap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>")
@@ -58,7 +57,7 @@ M.on_lsp_attach = function(args)
   bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 
   -- format current buffer
-  bufmap("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>")
+  bufmap("n", "<leader>cf", '<cmd>lua require("conform").format()<cr>')
 end
 
 return M

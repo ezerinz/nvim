@@ -3,7 +3,7 @@ local M = {}
 -- Load json and convert to table
 ---@param json_path string
 ---@return table | nil
-M.load_json = function(json_path)
+function M.load_json(json_path)
   local contents = ""
   local file = io.open(json_path, "r")
 

@@ -7,15 +7,16 @@ Plugin.keys = {
   { "<leader>fg", "<cmd>FzfLua live_grep<CR>" },
   { "<leader>fr", "<cmd>FzfLua oldfiles<CR>" },
 }
+
 Plugin.dependencies = { "nvim-tree/nvim-web-devicons" }
-Plugin.config = function()
-  require("fzf-lua").setup({
-    { "telescope" },
+
+function Plugin.config()
+  require("fzf-lua").setup({ "default-title" }, {
     winopts = {
-      on_create = function()
-        vim.keymap.set("t", "<C-j>", "<Down>", { silent = true, buffer = true })
-        vim.keymap.set("t", "<C-k>", "<Up>", { silent = true, buffer = true })
-      end,
+      backdrop = 100,
+    },
+    oldfiles = {
+      include_current_session = true,
     },
   })
 end

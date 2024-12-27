@@ -1,6 +1,10 @@
 local Plugin = { "nvim-treesitter/nvim-treesitter" }
 
-Plugin.version = false
+Plugin.main = "nvim-treesitter.configs"
+
+Plugin.version = false -- last release is way too old and doesn't work on Windows
+
+Plugin.build = ":TSUpdate"
 
 Plugin.event = {
   "BufReadPost",
@@ -8,27 +12,17 @@ Plugin.event = {
   "BufWritePre",
 }
 
-Plugin.cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" }
+Plugin.lazy = vim.fn.argc(-1) == 0 -- load treesitter early when opening a file from the cmdline
 
 Plugin.dependencies = {
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
+  "nvim-treesitter/nvim-treesitter-textobjects",
 }
 
 Plugin.opts = {
+  auto_install = true,
+  ignore_install = { "dart" },
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = { "html" },
-  },
-  indent = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "ga",
-      node_incremental = "ga",
-      node_decremental = "gz",
-    },
   },
   textobjects = {
     select = {
@@ -39,63 +33,13 @@ Plugin.opts = {
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
-        ["ia"] = "@parameter.inner",
-      },
-    },
-    swap = {
-      enable = true,
-      swap_previous = {
-        ["{a"] = "@parameter.inner",
-      },
-      swap_next = {
-        ["}a"] = "@parameter.inner",
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = {
-        ["]f"] = "@function.outer",
-        ["]c"] = "@class.outer",
-        ["]a"] = "@parameter.inner",
-      },
-      goto_next_end = {
-        ["]F"] = "@function.outer",
-        ["]C"] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[f"] = "@function.outer",
-        ["[c"] = "@class.outer",
-        ["[a"] = "@parameter.inner",
-      },
-      goto_previous_end = {
-        ["[F"] = "@function.outer",
-        ["[C"] = "@class.outer",
       },
     },
   },
   ensure_installed = {
-    "javascript",
-    "python",
-    "html",
-    "css",
-    "json",
-    "lua",
+    "vim",
+    "vimdoc",
   },
 }
-
-Plugin.build = ":TSUpdate"
-
-function Plugin.init(plugin)
-  require("lazy.core.loader").add_to_rtp(plugin)
-  require("nvim-treesitter.query_predicates")
-end
-
-function Plugin.config(_, opts)
-  require("nvim-treesitter.configs").setup(opts)
-  vim.filetype.add({
-    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-  })
-end
 
 return Plugin

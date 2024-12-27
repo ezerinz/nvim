@@ -1,18 +1,18 @@
 local Plugin = { "nvim-neo-tree/neo-tree.nvim" }
 
+Plugin.cmd = "Neotree"
+
+Plugin.keys = {
+  { "<leader>nt", "<cmd>Neotree toggle<CR>" },
+  { "<leader>nm", "<cmd>Neotree focus<CR>" },
+}
+
 Plugin.branch = "v3.x"
 
 Plugin.dependencies = {
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
   "MunifTanjim/nui.nvim",
-}
-
-Plugin.cmd = "Neotree"
-
-Plugin.keys = {
-  { "<leader>nt", "<cmd>Neotree toggle<CR>" },
-  { "<leader>nm", "<cmd>Neotree focus<CR>" },
 }
 
 Plugin.opts = {

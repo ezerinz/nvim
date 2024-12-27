@@ -46,6 +46,8 @@ Plugin.opts = {
     end
   end,
   autochdir = true,
+  start_in_insert = true,
+  auto_scroll = false,
 }
 
 return Plugin

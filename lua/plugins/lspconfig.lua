@@ -2,10 +2,22 @@ local Plugin = { "neovim/nvim-lspconfig" }
 
 Plugin.event = { "BufReadPre", "BufNewFile" }
 
+Plugin.cmd = { "LspInfo", "LspInstall", "LspUninstall" }
+
 Plugin.dependencies = {
+  "blink.cmp",
+  "mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "mfussenegger/nvim-jdtls",
-  "saghen/blink.cmp",
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
 }
 
 Plugin.opts = {
@@ -41,7 +53,6 @@ Plugin.opts = {
 
 Plugin.config = function(_, opts)
   local lspconfig = require("lspconfig")
-  -- local lsp_capabilities = require("blink.cmp").capabilities()
   local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
   local get_servers = require("mason-lspconfig").get_installed_servers()
 
