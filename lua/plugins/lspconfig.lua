@@ -51,8 +51,26 @@ Plugin.opts = {
   },
 }
 
+function Plugin.init()
+  vim.diagnostic.config({
+    virtual_text = true,
+    severity_sort = true,
+    float = {
+      border = "rounded",
+      source = true,
+    },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = " ",
+        [vim.diagnostic.severity.WARN] = " ",
+        [vim.diagnostic.severity.HINT] = " ",
+        [vim.diagnostic.severity.INFO] = " ",
+      },
+    },
+  })
+end
+
 Plugin.config = function(_, opts)
-  local lspconfig = require("lspconfig")
   local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
   local get_servers = require("mason-lspconfig").get_installed_servers()
 
@@ -63,7 +81,8 @@ Plugin.config = function(_, opts)
   end
 
   for _, server_name in ipairs(get_servers) do
-    lspconfig[server_name].setup(server_opts(server_name))
+    vim.lsp.enable(server_name)
+    vim.lsp.config(server_name, server_opts(server_name))
   end
 end
 

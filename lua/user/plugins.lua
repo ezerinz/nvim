@@ -35,6 +35,9 @@ lazy.opts = {
   install = {
     missing = true,
   },
+  checker = {
+    enabled = true,
+  },
   change_detection = {
     enabled = false,
     notify = false, -- get a notification when changes are found

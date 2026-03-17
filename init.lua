@@ -8,4 +8,4 @@ load("user.commands")
 load("user.keymaps")
 require("user.plugins")
 
-pcall(vim.cmd.colorscheme, "tokyonight-night")
+pcall(vim.cmd.colorscheme, "gruvbox-baby")

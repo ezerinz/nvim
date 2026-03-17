@@ -16,3 +16,7 @@ vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.hidden = true
 vim.opt.showmode = false
+
+-- gruvbox baby
+vim.g.gruvbox_baby_background_color = "dark"
+vim.g.gruvbox_baby_use_original_palette = true
